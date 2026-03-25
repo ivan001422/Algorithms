@@ -1,5 +1,5 @@
 """
-КОНСПЕКТ: Строки в Python
+Строки в Python
 Форматирование строк: f-строки и метод .format()
 """
 
@@ -34,7 +34,7 @@ Hello,
 Adam
 '''
 print(f"Многострочная строка:\n{multiline}")
-print(f"Количество символов новой строки: {multiline.count(chr(10))}")
+print(f"Количество символов новой строки: {multiline.count('\n')}")
 
 # --- Экранирование символов ---
 print("\n--- Экранирование символов ---")
@@ -186,6 +186,10 @@ print("{} + {} = {}".format(2, 3, 5))           # 2 + 3 = 5
 print("{0} + {1} = {2}".format(2, 3, 5))        # 2 + 3 = 5
 print("{1} + {0} = {2}".format(2, 3, 5))        # 3 + 2 = 5
 
+# Динамические вычисления с аргументами метода
+a = b = 5
+print('{0} + {1} = {sum}'.format(a, b, sum=a+b)) # sum нужно указывать как именованный агрумент
+
 # Повторное использование
 print("{0} {0} {1}".format("hello", "world"))   # hello hello world
 
@@ -219,14 +223,14 @@ pi = 3.14159
 print("{:.2f}".format(pi))      # 3.14
 print("{:.2%}".format(0.9567))  # 95.67%
 print("{:05d}".format(42))      # 00042
-print("{:#b}".format(42))       # 0b101010
+
+print('{:.2} {:b}'.format(0.973, 64)) # Аргументы подставятся перед двоеточием внутри фигурных скобок
 
 # --- Выравнивание в .format() ---
 print("\n--- Выравнивание в .format() ---")
 
 text = "Python"
-print("|{:<10}|".format(text))   # |Python    |
+print("|{:<10}|".format(text))   # |Python    | 
 print("|{:>10}|".format(text))   # |    Python|
 print("|{:^10}|".format(text))   # |  Python  |
 print("|{:*^10}|".format(text))  # |**Python**|
-
