@@ -15,7 +15,7 @@ int main() {
     for (int i = 0; i != 6; i++) matrix[i][0] = i;
     for (int i = 0; i != 4; i++) matrix[0][i] = i;
 
-    // Алгоритм Форда-Фишера
+    // Алгоритм Вагнера-Фишера
     for (int i = 1; i != 6; ++i) {
         for (int j = 1; j != 4; ++j) {
             matrix[i][j] = min(
