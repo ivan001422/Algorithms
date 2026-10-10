@@ -4,7 +4,7 @@ def quick_sort(a, l, r):
         quick_sort(a, l, m-1)
         quick_sort(a, m+1, r)
 
-
+# Разбиение Ломуто
 def f(a, l, r):
     p = l - 1
     for j in range(l, r):
