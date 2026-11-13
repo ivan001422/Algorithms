@@ -1,36 +1,60 @@
+#include <algorithm>
 #include <iostream>
+#include <limits>
 
-#define INF 2147483647
 using namespace std;
 
-const int SUM = 10;
-const int coins[3] = {1, 3, 4};
-int main() {
-    int temp[SUM+1] = {0};
-    int path[SUM+1] = {0};
+/*
+ * Задача о размене монет.
+ *
+ * coins - номиналы монет (отсортированы).
+ * SUM - сумма для размена.
+ * dp[i] - минимальное количество монет для суммы i.
+ * path[i] - последняя выбранная монета для суммы i.
+ * Память: O(SUM)
+ * Время: O(SUM * size(coins))
+ */
 
-    // Итеративная реализация
+constexpr int INF = numeric_limits<int>::max();
+
+const int coins[] = {2, 3, 4};
+const int SUM = 1;
+
+int main() {
+    int dp[SUM + 1] = {0};
+    int path[SUM + 1];
+
+    // Инициализируем путь значением -1 
+    fill(path, path + SUM + 1, -1);
+
+    // Вычисляем минимальное количество монет
     for (int i = 1; i <= SUM; ++i) {
-        temp[i] = INF;
-        for (int c: coins) {
-            if (i - c >= 0 && temp[i - c] < INF && temp[i - c] + 1 < temp[i]) {
-                temp[i] = temp[i - c] + 1;
-                path[i] = c; // Значение монеты, которой мы пришли в сумму i в оптимальном решении.
+        dp[i] = INF;
+
+        for (const int c : coins) {
+            if (c > i) break;
+            if (dp[i - c] == INF) continue;
+
+            if (dp[i - c] + 1 < dp[i]) {
+                dp[i] = dp[i - c] + 1;
+                path[i] = c;
             }
         }
     }
 
-    if (temp[SUM] == INF) {
-        cout << "No solution";
+    // Проверяем, существует ли решение
+    if (dp[SUM] == INF) {
+        cout << "No solution\n";
         return 0;
     }
 
-    int n = SUM;
-    while (n > 0) {
-        cout << path[n] << ' ';
-        n -= path[n];
-    }
-    
+    cout << dp[SUM] << '\n';
 
-    
+    // Восстанавливаем использованные монеты
+    for (int sum = SUM; sum > 0; sum -= path[sum]) {
+        cout << path[sum] << ' ';
+    }
+
+    cout << '\n';
+    return 0;
 }
